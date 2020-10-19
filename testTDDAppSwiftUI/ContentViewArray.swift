@@ -11,6 +11,7 @@ struct ContentViewArray: View {
     @EnvironmentObject var empleadosData:EmpleadosData
     var body: some View {
         NavigationView {
+            Text("Listado de empleados")
             List {
                 ForEach(empleadosData.empleados) { empleado in
                     RowEmpleado(empleado: empleado)
