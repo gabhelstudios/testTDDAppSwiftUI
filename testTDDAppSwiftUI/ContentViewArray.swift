@@ -16,7 +16,7 @@ struct ContentViewArray: View {
                     RowEmpleado(empleado: empleado)
                 }
             }
-            .navigationBarTitle("Empleados")
+            .navigationBarTitle("Listado Empleados")
         }
     }
 }
