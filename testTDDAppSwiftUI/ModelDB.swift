@@ -8,11 +8,10 @@
 import SwiftUI
 import CoreData
 
-func loadDataEmpleadosDB() {
+func loadDataEmpleadosDB(ctx:NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
     guard let ruta = Bundle.main.url(forResource: "EmpleadosData", withExtension: "json") else {
         return
     }
-    let ctx = PersistenceController.shared.container.viewContext
     do {
         let data = try Data(contentsOf: ruta)
         let empleados = try JSONDecoder().decode(Empleados.self, from: data)

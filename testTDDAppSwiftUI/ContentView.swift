@@ -41,7 +41,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        loadDataEmpleadosDB()
-        return ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        let ctx = PersistenceController.preview.container.viewContext
+        loadDataEmpleadosDB(ctx: ctx)
+        return ContentView().environment(\.managedObjectContext, ctx)
     }
 }
