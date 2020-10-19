@@ -11,14 +11,23 @@ struct ContentViewArray: View {
     @EnvironmentObject var empleadosData:EmpleadosData
     var body: some View {
         NavigationView {
-            Text("Listado de empleados")
             List {
-                ForEach(empleadosData.empleados) { empleado in
-                    RowEmpleado(empleado: empleado)
+                ForEach(section(empleadosData.empleados), id:\.self) { section in
+                    Section(header: Text(section[0].department.rawValue.capitalized)) {
+                        ForEach(section, id:\.self) { empleado in
+                            RowEmpleado(empleado: empleado)
+                        }
+                    }
                 }
-            }
+            } 
             .navigationBarTitle("Listado Empleados")
         }
+    }
+    
+    func section(_ result: Empleados) -> [[Empleado]] {
+        Dictionary(grouping: result) { (element: Empleado) in
+            element.department.rawValue
+        }.values.map { $0 }.sorted(by: { $0.first?.department.rawValue ?? "" < $1.first?.department.rawValue ?? "" })
     }
 }
 
