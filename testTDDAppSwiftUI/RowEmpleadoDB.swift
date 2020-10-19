@@ -1,5 +1,5 @@
 //
-//  RowEmpleado.swift
+//  RowEmpleadoDB.swift
 //  testTDDAppSwiftUI
 //
 //  Created by Julio César Fernández Muñoz on 19/10/20.
@@ -7,24 +7,22 @@
 
 import SwiftUI
 
-struct RowEmpleado: View {
-    let empleado:Empleado
-    @ObservedObject var imageContainer:ImageLoadNetwork
+struct RowEmpleadoDB: View {
+    let empleado:EmpleadoDB
+    @ObservedObject var imageContainer:ImageLoadNetworkDB
     
-    init(empleado:Empleado) {
+    init(empleado:EmpleadoDB) {
         self.empleado = empleado
-        self.imageContainer = ImageLoadNetwork(empleado: empleado)
+        self.imageContainer = ImageLoadNetworkDB(empleado: empleado)
     }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("\(empleado.lastName), \(empleado.firstName)")
+                Text("\(empleado.lastName ?? ""), \(empleado.firstName ?? "")")
                     .bold()
-                    .accessibility(identifier: "Full Name")
-                Text("\(empleado.email)")
+                Text("\(empleado.email ?? "")")
                     .font(.caption)
-                    .accessibility(identifier: "Email")
             }
             Spacer()
             imageContainer.image
@@ -33,7 +31,6 @@ struct RowEmpleado: View {
                 .frame(height: 44)
                 .background(Color.gray)
                 .clipShape(Circle())
-                .accessibility(hidden: true)
         }
         .onAppear {
             imageContainer.imageDownload()
@@ -41,8 +38,8 @@ struct RowEmpleado: View {
     }
 }
 
-struct RowEmpleado_Previews: PreviewProvider {
-    static var previews: some View {
-        RowEmpleado(empleado: testEmpleado)
-    }
-}
+//struct RowEmpleadoDB_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RowEmpleadoDB()
+//    }
+//}

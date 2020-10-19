@@ -9,13 +9,39 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest(entity: EmpleadoDB.entity(),
+                  sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)])
+        var empleadosConsulta:FetchedResults<EmpleadoDB>
+    
     var body: some View {
-        Text("Hola")
+        NavigationView {
+            List {
+                ForEach(section(empleadosConsulta), id:\.self) { section in
+                    if let dpto = section[0].department?.dpto {
+                        Section(header: Text(dpto)) {
+                            ForEach(section, id:\.self) { empleado in
+                                RowEmpleadoDB(empleado: empleado)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Listado Empleados")
+        }
     }
+    
+    func section(_ result: FetchedResults<EmpleadoDB>) -> [[EmpleadoDB]] {
+        Dictionary(grouping: result) { (element: EmpleadoDB) in
+            element.department?.dpto ?? ""
+        }.values.map { $0 }.sorted(by: { $0.first?.department?.dpto ?? "" < $1.first?.department?.dpto ?? "" })
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        loadDataEmpleadosDB()
+        return ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }

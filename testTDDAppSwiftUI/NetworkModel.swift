@@ -34,3 +34,30 @@ class ImageLoadNetwork: ObservableObject {
             .store(in: &subscribers)
     }
 }
+
+class ImageLoadNetworkDB: ObservableObject {
+    @Published var image = Image(uiImage: UIImage(systemName: "person.fill")!)
+    let empleado:EmpleadoDB
+    var subscribers = Set<AnyCancellable>()
+    
+    init(empleado:EmpleadoDB) {
+        self.empleado = empleado
+    }
+
+    func imageDownload() {
+        URLSession.shared.dataTaskPublisher(for: empleado.avatar!)
+            .map {
+                $0.data
+            }
+            .compactMap {
+                UIImage(data: $0)
+            }
+            .map {
+                Image(uiImage: $0)
+            }
+            .replaceError(with: Image(uiImage: UIImage(systemName: "person.fill")!))
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.image, on: self)
+            .store(in: &subscribers)
+    }
+}

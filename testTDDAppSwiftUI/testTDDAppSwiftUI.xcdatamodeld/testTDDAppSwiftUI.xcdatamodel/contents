@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="20A5395g" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="DepartmentDB" representedClassName="DepartmentDB" syncable="YES" codeGenerationType="class">
+        <attribute name="dpto" attributeType="String"/>
+        <relationship name="empleados" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmpleadoDB" inverseName="department" inverseEntity="EmpleadoDB"/>
+    </entity>
+    <entity name="EmpleadoDB" representedClassName="EmpleadoDB" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="avatar" optional="YES" attributeType="URI"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <attribute name="zipcode" optional="YES" attributeType="String"/>
+        <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DepartmentDB" inverseName="empleados" inverseEntity="DepartmentDB"/>
+    </entity>
+    <elements>
+        <element name="EmpleadoDB" positionX="-63" positionY="-9" width="128" height="179"/>
+        <element name="DepartmentDB" positionX="-54" positionY="0" width="128" height="14"/>
+    </elements>
 </model>

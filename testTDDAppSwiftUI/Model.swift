@@ -77,11 +77,13 @@ class EmpleadosData: ObservableObject {
         return []
     }
     
-    func save() {
+    func save(test:Bool = false) {
         guard let rutaDoc = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
-        let rutaFile = rutaDoc.appendingPathComponent("EmpleadosData").appendingPathExtension("json")
+        let rutaFile = (test ?  rutaDoc.appendingPathComponent("EmpleadosDataTest") :
+            rutaDoc.appendingPathComponent("EmpleadosData"))
+            .appendingPathExtension("json")
         do {
             let dataJSON = try JSONEncoder().encode(empleados)
             DispatchQueue.global(qos: .background).async {
