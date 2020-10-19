@@ -13,6 +13,11 @@
 		4B0246ED253E0249004FDAFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0246EC253E0249004FDAFB /* Preview Assets.xcassets */; };
 		4B0246EF253E0249004FDAFB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0246EE253E0249004FDAFB /* Persistence.swift */; };
 		4B0246F2253E0249004FDAFB /* testTDDAppSwiftUI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B0246F0253E0249004FDAFB /* testTDDAppSwiftUI.xcdatamodeld */; };
+		4B0246FB253E0430004FDAFB /* EmpleadosData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B0246FA253E0430004FDAFB /* EmpleadosData.json */; };
+		4B0246FE253E0443004FDAFB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0246FD253E0443004FDAFB /* Model.swift */; };
+		4B024701253E07F1004FDAFB /* ContentViewArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B024700253E07F1004FDAFB /* ContentViewArray.swift */; };
+		4B024704253E0B4E004FDAFB /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B024703253E0B4E004FDAFB /* NetworkModel.swift */; };
+		4B024707253E11F3004FDAFB /* RowEmpleado.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B024706253E11F3004FDAFB /* RowEmpleado.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		4B0246EE253E0249004FDAFB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		4B0246F1253E0249004FDAFB /* testTDDAppSwiftUI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = testTDDAppSwiftUI.xcdatamodel; sourceTree = "<group>"; };
 		4B0246F3253E0249004FDAFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B0246FA253E0430004FDAFB /* EmpleadosData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmpleadosData.json; sourceTree = "<group>"; };
+		4B0246FD253E0443004FDAFB /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		4B024700253E07F1004FDAFB /* ContentViewArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewArray.swift; sourceTree = "<group>"; };
+		4B024703253E0B4E004FDAFB /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		4B024706253E11F3004FDAFB /* RowEmpleado.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowEmpleado.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +68,14 @@
 			children = (
 				4B0246E5253E0247004FDAFB /* testTDDAppSwiftUIApp.swift */,
 				4B0246E7253E0247004FDAFB /* ContentView.swift */,
+				4B024700253E07F1004FDAFB /* ContentViewArray.swift */,
+				4B024706253E11F3004FDAFB /* RowEmpleado.swift */,
 				4B0246E9253E0249004FDAFB /* Assets.xcassets */,
 				4B0246EE253E0249004FDAFB /* Persistence.swift */,
+				4B0246FD253E0443004FDAFB /* Model.swift */,
+				4B024703253E0B4E004FDAFB /* NetworkModel.swift */,
 				4B0246F3253E0249004FDAFB /* Info.plist */,
+				4B0246FA253E0430004FDAFB /* EmpleadosData.json */,
 				4B0246F0253E0249004FDAFB /* testTDDAppSwiftUI.xcdatamodeld */,
 				4B0246EB253E0249004FDAFB /* Preview Content */,
 			);
@@ -134,6 +149,7 @@
 			files = (
 				4B0246ED253E0249004FDAFB /* Preview Assets.xcassets in Resources */,
 				4B0246EA253E0249004FDAFB /* Assets.xcassets in Resources */,
+				4B0246FB253E0430004FDAFB /* EmpleadosData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,9 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B0246FE253E0443004FDAFB /* Model.swift in Sources */,
 				4B0246EF253E0249004FDAFB /* Persistence.swift in Sources */,
+				4B024701253E07F1004FDAFB /* ContentViewArray.swift in Sources */,
+				4B024707253E11F3004FDAFB /* RowEmpleado.swift in Sources */,
 				4B0246E8253E0247004FDAFB /* ContentView.swift in Sources */,
 				4B0246F2253E0249004FDAFB /* testTDDAppSwiftUI.xcdatamodeld in Sources */,
+				4B024704253E0B4E004FDAFB /* NetworkModel.swift in Sources */,
 				4B0246E6253E0247004FDAFB /* testTDDAppSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
