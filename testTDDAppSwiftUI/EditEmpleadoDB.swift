@@ -22,6 +22,7 @@ struct EditEmpleadoDB: View {
         Form {
             VStack(alignment: .leading) {
                 Text("First name").bold()
+                    .accessibility(identifier: "firstName")
                 TextField("Enter the first name", text: $firstName)
                     .textContentType(.name)
             }

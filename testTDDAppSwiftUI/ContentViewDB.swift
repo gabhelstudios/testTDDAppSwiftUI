@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct ContentViewDB: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: EmpleadoDB.entity(),
                   sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)])
@@ -41,10 +41,10 @@ struct ContentView: View {
 
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewDB_Previews: PreviewProvider {
     static var previews: some View {
         _ = testDataEmpleadosDB()
-        return ContentView()
+        return ContentViewDB()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -13,15 +13,16 @@ struct testTDDAppSwiftUIApp: App {
     @StateObject var empleadosData = EmpleadosData()
 
     var body: some Scene {
-//        loadDataEmpleadosDB()
-//        return WindowGroup {
-//            ContentViewDB()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        
-        WindowGroup {
-            ContentView()
-                .environmentObject(empleadosData)
+        loadDataEmpleadosDB()
+        return WindowGroup {
+            ContentViewDB()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        
+//        WindowGroup {
+//            ContentView()
+//                .environmentObject(empleadosData)
+//        }
     }
 }
 

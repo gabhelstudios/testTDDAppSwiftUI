@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentViewArray: View {
+struct ContentView: View {
     @EnvironmentObject var empleadosData:EmpleadosData
     var body: some View {
         NavigationView {
@@ -35,9 +35,9 @@ struct ContentViewArray: View {
     }
 }
 
-struct ContentViewArray_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentViewArray()
+        ContentView()
             .environmentObject(EmpleadosData())
     }
 }
