@@ -99,4 +99,4 @@ class EmpleadosData: ObservableObject {
     }
 }
 
-let testEmpleado = Empleado(id: 1, username: "test", firstName: "Empleado", lastName: "De Prueba", gender: .male, email: "prueba@test.com", department: .accounting, address: "", avatar: URL(string: "https://robohash.org/quaminventoredolorem.png")!, zipcode: nil)
+let testEmpleado = Empleado(id: 1, username: "stevejobs", firstName: "Steve", lastName: "Jobs", gender: .male, email: "steve@mac.com", department: .businessDevelopment, address: "Cupertino", avatar: URL(string: "https://hiperbeta.com/wp-content/uploads/2010/02/steve-jobs-talking.jpg")!, zipcode: nil)

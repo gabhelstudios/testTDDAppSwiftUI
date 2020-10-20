@@ -8,10 +8,11 @@
 import SwiftUI
 import CoreData
 
-func loadDataEmpleadosDB(ctx:NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+func loadDataEmpleadosDB() {
     guard let ruta = Bundle.main.url(forResource: "EmpleadosData", withExtension: "json") else {
         return
     }
+    let ctx = PersistenceController.shared.container.viewContext
     do {
         let data = try Data(contentsOf: ruta)
         let empleados = try JSONDecoder().decode(Empleados.self, from: data)
@@ -50,5 +51,50 @@ func loadDataEmpleadosDB(ctx:NSManagedObjectContext = PersistenceController.shar
         }
     } catch {
         print("Error en la carga \(error)")
+    }
+}
+
+func testDataEmpleadosDB() -> EmpleadoDB {
+    let ctx = PersistenceController.preview.container.viewContext
+    Department.allCases.forEach {
+        let newDpto = DepartmentDB(context: ctx)
+        newDpto.dpto = $0.rawValue
+    }
+    let newEmpleado = EmpleadoDB(context: ctx)
+    newEmpleado.id = 1
+    newEmpleado.firstName = "Steve"
+    newEmpleado.lastName = "Jobs"
+    newEmpleado.gender = "Male"
+    newEmpleado.email = "stevejobs@mac.com"
+    newEmpleado.address = "Cupertino"
+    newEmpleado.username = "stevejobs"
+    newEmpleado.avatar = URL(string: "https://hiperbeta.com/wp-content/uploads/2010/02/steve-jobs-talking.jpg")!
+    let dptoFetch:NSFetchRequest<DepartmentDB> = DepartmentDB.fetchRequest()
+    let dptoPredicate = NSPredicate(format: "%K = %@", #keyPath(DepartmentDB.dpto), "Business Development")
+    dptoFetch.predicate = dptoPredicate
+    do {
+        let dpto = try ctx.fetch(dptoFetch)
+        if let departamento = dpto.first {
+            newEmpleado.department = departamento
+        }
+    } catch {
+        print("ERROR \(error)")
+    }
+    try? ctx.save()
+    return newEmpleado
+}
+
+extension NSManagedObject {
+    static func queryData<T:NSManagedObject, U:CVarArg>(field:String, filter:U, context:NSManagedObjectContext = PersistenceController().container.viewContext) -> T? {
+        guard let name = self.entity().name else {
+            return nil
+        }
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+        fetch.predicate = NSPredicate(format: "%K = %@", field, filter)
+        do {
+            return try context.fetch(fetch).first as? T
+        } catch {
+            return nil
+        }
     }
 }

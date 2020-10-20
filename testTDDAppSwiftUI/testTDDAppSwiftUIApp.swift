@@ -11,21 +11,17 @@ import SwiftUI
 struct testTDDAppSwiftUIApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject var empleadosData = EmpleadosData()
-    //@UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
-        loadDataEmpleadosDB()
-        return WindowGroup {
+//        loadDataEmpleadosDB()
+//        return WindowGroup {
+//            ContentViewDB()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        
+        WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            ContentViewArray()
-//                .environmentObject(empleadosData)
+                .environmentObject(empleadosData)
         }
     }
 }
 
-class AppDelegate:NSObject, UIApplicationDelegate {
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        loadDataEmpleadosDB()
-    }
-}

@@ -38,8 +38,9 @@ struct RowEmpleadoDB: View {
     }
 }
 
-//struct RowEmpleadoDB_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RowEmpleadoDB()
-//    }
-//}
+struct RowEmpleadoDB_Previews: PreviewProvider {
+    static var previews: some View {
+        RowEmpleadoDB(empleado: testDataEmpleadosDB())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}

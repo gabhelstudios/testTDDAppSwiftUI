@@ -1,48 +1,44 @@
 //
-//  ContentView.swift
+//  ContentViewArray.swift
 //  testTDDAppSwiftUI
 //
 //  Created by Julio César Fernández Muñoz on 19/10/20.
 //
 
 import SwiftUI
-import CoreData
 
-struct ContentView: View {
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(entity: EmpleadoDB.entity(),
-                  sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)])
-        var empleadosConsulta:FetchedResults<EmpleadoDB>
-    
+struct ContentViewArray: View {
+    @EnvironmentObject var empleadosData:EmpleadosData
     var body: some View {
         NavigationView {
             List {
-                ForEach(section(empleadosConsulta), id:\.self) { section in
-                    if let dpto = section[0].department?.dpto {
-                        Section(header: Text(dpto)) {
-                            ForEach(section, id:\.self) { empleado in
-                                RowEmpleadoDB(empleado: empleado)
-                            }
+                ForEach(section(empleadosData.empleados), id:\.self) { section in
+                    Section(header: Text(section[0].department.rawValue.capitalized)) {
+                        ForEach(section, id:\.self) { empleado in
+                            NavigationLink(
+                                destination: EditEmpleado(empleado: empleado),
+                                label: {
+                                    RowEmpleado(empleado: empleado)
+                                })
                         }
                     }
                 }
-            }
+            } 
             .navigationBarTitle("Listado Empleados")
         }
     }
     
-    func section(_ result: FetchedResults<EmpleadoDB>) -> [[EmpleadoDB]] {
-        Dictionary(grouping: result) { (element: EmpleadoDB) in
-            element.department?.dpto ?? ""
-        }.values.map { $0 }.sorted(by: { $0.first?.department?.dpto ?? "" < $1.first?.department?.dpto ?? "" })
+    func section(_ result: Empleados) -> [[Empleado]] {
+        Dictionary(grouping: result) { (element: Empleado) in
+            element.department.rawValue
+        }.values.map { $0 }.sorted(by: { $0.first?.department.rawValue ?? "" < $1.first?.department.rawValue ?? "" })
     }
-
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewArray_Previews: PreviewProvider {
     static var previews: some View {
-        let ctx = PersistenceController.preview.container.viewContext
-        loadDataEmpleadosDB(ctx: ctx)
-        return ContentView().environment(\.managedObjectContext, ctx)
+        ContentViewArray()
+            .environmentObject(EmpleadosData())
     }
 }
+
