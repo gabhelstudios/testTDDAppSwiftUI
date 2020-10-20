@@ -16,20 +16,27 @@ class ImageLoadNetwork: ObservableObject {
     init(empleado:Empleado) {
         self.empleado = empleado
     }
-
-    func imageDownload() {
+    
+    func publisherImage() -> AnyPublisher<Image,Never> {
         URLSession.shared.dataTaskPublisher(for: empleado.avatar)
             .map {
-                $0.data
+                print("HOla")
+                return $0.data
             }
             .compactMap {
                 UIImage(data: $0)
             }
+            .replaceEmpty(with: UIImage(systemName: "person.fill")!)
             .map {
                 Image(uiImage: $0)
             }
             .replaceError(with: Image(uiImage: UIImage(systemName: "person.fill")!))
             .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
+    func imageDownload() {
+        publisherImage()
             .assign(to: \.image, on: self)
             .store(in: &subscribers)
     }

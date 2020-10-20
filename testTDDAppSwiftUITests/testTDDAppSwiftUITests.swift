@@ -6,12 +6,23 @@
 //
 
 import XCTest
+import SwiftUI
+import Combine
+
 @testable import testTDDAppSwiftUI
 
 class testTDDAppSwiftUITests: XCTestCase {
+    
+    var empleados = EmpleadosData()
+    var networkModel:ImageLoadNetwork!
+    var subscribers = Set<AnyCancellable>()
+    
+    let testEmpleadoGood = Empleado(id: 1, username: "stevejobs", firstName: "Steve", lastName: "Jobs", gender: .male, email: "steve@mac.com", department: .businessDevelopment, address: "Cupertino", avatar: URL(string: "https://hiperbeta.com/wp-content/uploads/2010/02/steve-jobs-talking.jpg")!, zipcode: nil)
+    let testEmpleadoBad = Empleado(id: 1, username: "stevejobs", firstName: "Steve", lastName: "Jobs", gender: .male, email: "steve@mac.com", department: .businessDevelopment, address: "Cupertino", avatar: URL(string: "https://hiperbeta.com/wp-content/uploads/2010/02/stjobs-talking.jpg")!, zipcode: nil)
+
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
     }
 
     override func tearDownWithError() throws {
@@ -19,15 +30,22 @@ class testTDDAppSwiftUITests: XCTestCase {
     }
 
     func testExample() throws {
+        
+        
+        
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+    
+    func testImageDownloadInvalidAvatar() {
+        let exp = expectation(description: "Debe devolver la imagen por defecto")
+        networkModel = ImageLoadNetwork(empleado: testEmpleadoGood)
+        networkModel.publisherImage().sink(receiveValue: {
+            let imagenDefecto = Image(uiImage: UIImage(systemName: "person.fill")!)
+            XCTAssertFalse($0 == imagenDefecto, "La imagen devuelta es la imagen por defecto")
+            exp.fulfill()
+        })
+        .store(in: &subscribers)
+        waitForExpectations(timeout: 3, handler: nil)
+     }
 }
