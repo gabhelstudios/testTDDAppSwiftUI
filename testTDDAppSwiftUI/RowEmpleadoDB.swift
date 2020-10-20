@@ -8,13 +8,8 @@
 import SwiftUI
 
 struct RowEmpleadoDB: View {
-    let empleado:EmpleadoDB
-    @ObservedObject var imageContainer:ImageLoadNetworkDB
-    
-    init(empleado:EmpleadoDB) {
-        self.empleado = empleado
-        self.imageContainer = ImageLoadNetworkDB(empleado: empleado)
-    }
+    @Environment(\.managedObjectContext) var context
+    @ObservedObject var empleado:EmpleadoDB
     
     var body: some View {
         HStack {
@@ -25,15 +20,27 @@ struct RowEmpleadoDB: View {
                     .font(.caption)
             }
             Spacer()
-            imageContainer.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 44)
-                .background(Color.gray)
-                .clipShape(Circle())
+            if let data = empleado.avatarIMG, let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 44)
+                    .background(Color.gray)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 44)
+                    .background(Color.gray)
+                    .clipShape(Circle())
+            }
         }
         .onAppear {
-            imageContainer.imageDownload()
+            if empleado.avatarIMG == nil {
+                let image = ImageLoadNetworkDB(empleado: empleado, ctx: context)
+                image.imageDownload()
+            }
         }
     }
 }

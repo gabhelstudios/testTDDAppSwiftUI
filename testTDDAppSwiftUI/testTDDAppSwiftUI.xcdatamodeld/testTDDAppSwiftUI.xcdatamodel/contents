@@ -7,6 +7,7 @@
     <entity name="EmpleadoDB" representedClassName="EmpleadoDB" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="avatar" optional="YES" attributeType="URI"/>
+        <attribute name="avatarIMG" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
@@ -17,7 +18,7 @@
         <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DepartmentDB" inverseName="empleados" inverseEntity="DepartmentDB"/>
     </entity>
     <elements>
-        <element name="EmpleadoDB" positionX="-63" positionY="-9" width="128" height="179"/>
         <element name="DepartmentDB" positionX="-54" positionY="0" width="128" height="14"/>
+        <element name="EmpleadoDB" positionX="-63" positionY="-9" width="128" height="194"/>
     </elements>
 </model>

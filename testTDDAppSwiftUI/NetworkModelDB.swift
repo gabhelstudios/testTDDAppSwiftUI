@@ -7,30 +7,32 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
-class ImageLoadNetwork: ObservableObject {
-    @Published var image = Image(uiImage: UIImage(systemName: "person.fill")!)
-    let empleado:Empleado
+class ImageLoadNetworkDB {
+    let empleado:EmpleadoDB
     var subscribers = Set<AnyCancellable>()
+    let ctx:NSManagedObjectContext
     
-    init(empleado:Empleado) {
+    init(empleado:EmpleadoDB, ctx:NSManagedObjectContext) {
         self.empleado = empleado
+        self.ctx = ctx
     }
 
     func imageDownload() {
-        URLSession.shared.dataTaskPublisher(for: empleado.avatar)
+        URLSession.shared.dataTaskPublisher(for: empleado.avatar!)
             .map {
                 $0.data
             }
             .compactMap {
                 UIImage(data: $0)
             }
-            .map {
-                Image(uiImage: $0)
-            }
-            .replaceError(with: Image(uiImage: UIImage(systemName: "person.fill")!))
+            .replaceError(with: UIImage(systemName: "person.fill")!)
             .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
+            .sink(receiveValue: { [self] image in
+                empleado.avatarIMG = image.pngData()
+                try? ctx.save()
+            })
             .store(in: &subscribers)
     }
 }
